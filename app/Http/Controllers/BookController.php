@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Book;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -11,9 +12,11 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Book $book)
     {
-        //
+        $books = $book->get();
+
+        return view('book.index', compact('books'));
     }
 
     /**
@@ -23,7 +26,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('book.create');
     }
 
     /**
@@ -32,9 +35,19 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        request()->validate([
+            'name' => 'required|string',
+            'price' => 'required|integer'
+        ]);
+
+        $book = Book::create([
+            'name' => request()->name,
+            'price' => request()->price
+        ]);
+
+        return redirect('/');
     }
 
     /**
@@ -43,9 +56,9 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Book $book)
     {
-        //
+        return view('book.show', compact('book'));
     }
 
     /**
@@ -54,9 +67,9 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Book $book)
     {
-        //
+        return view('book.edit', compact('book'));
     }
 
     /**
@@ -66,9 +79,19 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Book $book)
     {
-        //
+        request()->validate([
+            'name' => 'required|string',
+            'price' => 'required|integer'
+        ]);
+
+        $book->update([
+            'name' => request()->name,
+            'price' => request()->price
+        ]);
+
+        return redirect('/');
     }
 
     /**
@@ -77,8 +100,10 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Book $book)
     {
-        //
+        $book->detroy();
+        
+        return redirect('/');
     }
 }
