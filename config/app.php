@@ -1,7 +1,12 @@
 <?php
 
 return [
+    'midtrans'=>[
+        'server_key'=>env('MIDTRANS_SERVER_KEY',null),
+        'client_key'=>env('MIDTRANS_CLIENT_KEY',null),
+        'base_uri'=>env('MIDTRANS_BASE_URI',null)
 
+    ],
     /*
     |--------------------------------------------------------------------------
     | Application Name
