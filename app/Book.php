@@ -9,5 +9,4 @@ class Book extends Model
     use UsesUuid;
 
     protected $guarded = [];
-
 }
