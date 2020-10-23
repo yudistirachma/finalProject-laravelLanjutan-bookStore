@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Book;
 use Illuminate\Http\Request;
-use App\Book;
 use App\Order;
 use GuzzleHttp\Client;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\BookResource;
 use Midtrans;
 class BookController extends Controller
@@ -31,7 +31,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('book.create');
+        return view('book.input');
     }
 
     /**
@@ -43,13 +43,15 @@ class BookController extends Controller
     public function store()
     {
         request()->validate([
-            'name' => 'required|string',
-            'price' => 'required|integer'
+            'title' => 'required|string',
+            'price' => 'required|integer',
+            'picture' => 'required|image|mimes:jpg,png,svg,jpeg|max:2048'
         ]);
 
         $book = Book::create([
-            'name' => request()->name,
-            'price' => request()->price
+            'title' => request()->title,
+            'price' => request()->price,
+            'picture' => request()->file('picture')->store('images/books')
         ]);
 
         return redirect('/');
@@ -88,12 +90,21 @@ class BookController extends Controller
     {
         request()->validate([
             'name' => 'required|string',
-            'price' => 'required|integer'
+            'price' => 'required|integer',
+            'picture' => 'image|mimes:jpg,png,svg,jpeg|max:2048'
         ]);
+
+        if (request()->file('picture')) {
+            Storage::delete($book->picture);
+            $picture = request()->file('picture')->store("images/books");
+        } else {
+            $picture = $book->picture;
+        }
 
         $book->update([
             'name' => request()->name,
-            'price' => request()->price
+            'price' => request()->price,
+            'picture' => $picture
         ]);
 
         return redirect('/');
