@@ -33,7 +33,20 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        @auth
+                        @if (Auth::user()->role == "admin")
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Admin Acess
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="/create">Input Product</a>
+                                <a class="dropdown-item" href="/list">list Produt</a>
+                                </div>
+                            </li>
+                        @endif   
+                        @endauth
+                        
                     </ul>
 
                     <!-- Right Side Of Navbar -->

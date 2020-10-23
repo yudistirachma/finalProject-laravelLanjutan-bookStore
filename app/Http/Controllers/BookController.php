@@ -28,6 +28,13 @@ class BookController extends Controller
         return view('book.index', compact('books'));
     }
 
+    public function list(Book $book)
+    {
+        $books = $book->get();
+
+        return view('book.list', compact('books'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -73,7 +80,6 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        dd($book);
         return view('book.show', compact('book'));
     }
 
@@ -85,7 +91,6 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        dd($book);
         return view('book.edit', compact('book'));
     }
 
@@ -128,7 +133,8 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        $book->detroy();
+        Storage::delete($book->picture);
+        $book->delete();
         
         return redirect('/');
     }

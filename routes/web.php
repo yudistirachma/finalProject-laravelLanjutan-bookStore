@@ -24,5 +24,11 @@ Route::view('/checkout','book.pay');
 
 Auth::routes();
 
-Route::resource('/', 'BookController');
+Route::get('/', 'BookController@index');
+Route::get('/create', 'BookController@create');
+Route::post('/', 'BookController@store');
+Route::get('/list', 'BookController@list');
+Route::get('{book}', 'BookController@show');
+Route::delete('{book}', 'BookController@destroy');
+Route::get('{book}/edit', 'BookController@edit');
 
