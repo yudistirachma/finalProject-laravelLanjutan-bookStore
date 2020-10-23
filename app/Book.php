@@ -9,4 +9,9 @@ class Book extends Model
     use UsesUuid;
 
     protected $guarded = [];
+
+    public function takeImage()
+    {
+        return "storage/" . $this->picture;
+    }
 }
