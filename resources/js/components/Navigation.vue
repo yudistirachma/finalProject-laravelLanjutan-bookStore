@@ -5,6 +5,8 @@
 
           <router-link to="/create">Create Book</router-link>
 
+          <router-link to="/chatting">Chatting</router-link>
+
       </div>
     </div>
 </template>
