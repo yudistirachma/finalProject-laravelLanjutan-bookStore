@@ -25,3 +25,4 @@ Route::view('/checkout','book.pay');
 Auth::routes();
 
 Route::resource('/', 'BookController');
+

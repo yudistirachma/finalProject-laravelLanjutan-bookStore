@@ -34,10 +34,16 @@
             </div>
         </div>
         <div class="row">
+            <div class="form-group col-md-8">
+                <label for="exampleFormControlTextarea1">Description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+            </div>
+        </div>
+        <div class="row">
             <div class="was-validated col-md-4">
                 <div class="custom-file">
                     <input type="file" class="custom-file-input @error('picture') is-invalid @enderror" required id="validatedCustomFile" name="picture" >
-                    <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                    <label class="custom-file-label" for="validatedCustomFile">Choose picture...</label>
                 </div>
                 @error('picture')
                     <div class="invalid-feedback">

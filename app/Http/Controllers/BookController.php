@@ -12,6 +12,10 @@ use App\Http\Resources\BookResource;
 use Midtrans;
 class BookController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth','checkRole'])->only('create');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -44,14 +48,18 @@ class BookController extends Controller
     {
         request()->validate([
             'title' => 'required|string',
+            'description' => 'string',
             'price' => 'required|integer',
             'picture' => 'required|image|mimes:jpg,png,svg,jpeg|max:2048'
         ]);
 
+        $picture = request()->file('picture') ? request()->file('picture')->store('images/books') : null;
+
         $book = Book::create([
             'title' => request()->title,
+            'description' => request()->description,
             'price' => request()->price,
-            'picture' => request()->file('picture')->store('images/books')
+            'picture' => $picture
         ]);
 
         return redirect('/');
@@ -65,6 +73,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
+        dd($book);
         return view('book.show', compact('book'));
     }
 
@@ -76,6 +85,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
+        dd($book);
         return view('book.edit', compact('book'));
     }
 
