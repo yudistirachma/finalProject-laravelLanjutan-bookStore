@@ -18,6 +18,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+     <script>
+        window.Laravel={!!json_encode([
+                'user'=>[
+
+                    'name'=>auth()->check()?auth()->user()->name:null
+                ]
+            ]) !!}
+    </script>
 </head>
 <body>
     <div id="app">
@@ -41,8 +49,22 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="/create">Input Product</a>
-                                <a class="dropdown-item" href="/list">list Produt</a>
+                                <a class="dropdown-item" href="/list">List Produt</a>
+                                 <a class="dropdown-item" href="/chat">Live Chat</a>
                                 </div>
+                            </li>
+                        @endif 
+                         @if (Auth::user()->role == "user")
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                User Acess
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                               
+                                 <a class="dropdown-item" href="/chat">Live Chat</a>
+                                </div>
+                                 <!-- <navigation></navigation>
+                                 <router-view></router-view> -->
                             </li>
                         @endif   
                         @endauth
@@ -89,5 +111,6 @@
             @yield('content')
         </main>
     </div>
+     <!-- <script src="/js/app.js"></script> -->
 </body>
 </html>

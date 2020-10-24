@@ -11,8 +11,16 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 require('./bootstrap');
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(VueRouter);
+
+
+
+Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -25,6 +33,11 @@ Vue.use(VueRouter);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 import routes from './router'
 Vue.component('navigation', require('./components/Navigation.vue').default);
+Vue.component('chat-box-component', require('./components/chat/ChatBoxComponent.vue').default);
+Vue.component('chat-user-list-component', require('./components/chat/ChatUserListComponent.vue').default);
+Vue.component('chat-message-component', require('./components/chat/ChatMessageComponent.vue').default);
+Vue.component('chat-form-component', require('./components/chat/ChatFormComponent.vue').default);
+Vue.component('order-component', require('./components/book/OrderComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -33,7 +46,7 @@ Vue.component('navigation', require('./components/Navigation.vue').default);
  */
 
 const app = new Vue({
-    el: '#book_store',
+    el: '#app',
     router:new VueRouter(routes),
 
 });

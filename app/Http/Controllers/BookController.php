@@ -28,11 +28,18 @@ class BookController extends Controller
         return view('book.index', compact('books'));
     }
 
+
+     public function get_book(Book $book)
+    {
+        $books = $book->get();
+
+        return view('book.index', compact('books'));
+    }
     public function list(Book $book)
     {
         $books = $book->get();
 
-        return view('book.list', compact('books'));
+        return $books;
     }
 
     /**
@@ -139,23 +146,26 @@ class BookController extends Controller
         return redirect('/');
     }
 
+
     public function payment(Request $request)
     {
+         
         $order=Order::create([
-            'amount'=>$request->amount,
-            'method'=>$request->method,
-            'id_book'=>$request->id_book
+            'amount'=>$request['data'][0]['amount'],
+            'method'=>$request['data'][0]['method'],
+            'id_book'=>$request['data'][0]['id_book']
         ]);
+       
+       $order->order_id='order-'.$order->order_id;
+      $order->save();
 
-        $order->order_id=$order->id.'-'.Str::random(5);
-        $order->save();
-
-        $response_midtrans=$this->midtrans_store($order);
+       $response_midtrans=$this->midtrans_store($order);
 
         return response()->json([
             'response_code'=>'00',
             'response_msg'=>'success',
-            'data'=>$response_midtrans
+             'data'=>$response_midtrans,
+             'order_id'=>$order->id
 
         ]);
     }
@@ -226,6 +236,15 @@ class BookController extends Controller
     }
     public function generate(Request $request)
     {
+       $gross_amount=$request->data['transaction_details']['gross_amount'];
+       $order_id=$request->data['transaction_details']['order_id'];
+       $complete_request = array(
+            'transaction_details' => array(
+                'gross_amount' => $gross_amount,
+                'order_id' =>$order_id,
+            )
+        );
+     // print_r($complete_request);
         Midtrans\Config::$serverKey=config('app.midtrans.server_key');
         Midtrans\Config::$isSanitized=true;
         Midtrans\Config::$is3ds=true;
