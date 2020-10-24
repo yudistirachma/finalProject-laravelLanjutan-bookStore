@@ -49,7 +49,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="/create">Input Product</a>
-                                <a class="dropdown-item" href="/list">List Produt</a>
+                                <a class="dropdown-item" href="/product-list">List Produt</a>
                                  <a class="dropdown-item" href="/chat">Live Chat</a>
                                 </div>
                             </li>

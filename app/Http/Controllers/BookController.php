@@ -42,6 +42,13 @@ class BookController extends Controller
         return $books;
     }
 
+    public function productList(Book $book)
+    {
+        $books = $book->get();
+
+        return view('book.list', compact('books'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

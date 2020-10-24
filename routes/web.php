@@ -31,6 +31,7 @@ Route::get('/', 'BookController@index');
 Route::get('/create', 'BookController@create');
 Route::post('/', 'BookController@store');
 Route::get('/list', 'BookController@list');
+Route::get('/product-list', 'BookController@productList');
 Route::get('{book}', 'BookController@show');
 Route::delete('{book}', 'BookController@destroy');
 Route::get('{book}/edit', 'BookController@edit');
