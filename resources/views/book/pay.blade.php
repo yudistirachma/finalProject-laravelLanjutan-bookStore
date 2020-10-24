@@ -18,9 +18,9 @@
 			return{
 				data_midtrans:{
 					'transaction_details':{
-						'order_id':'order-1234566',
+						'order_id':'67',
 						'id_book':1,
-						'gross_amount':50000
+						'gross_amount':200000
 					},
 					'customer_details':{
 						'first_name':'emma',
